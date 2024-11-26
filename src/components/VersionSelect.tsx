@@ -6,7 +6,6 @@ const VersionSelect = ({
   setSelectedBible: (bible: string) => void;
 }) => {
   const [versions, setVersions] = useState<any[]>([]);
-  console.log("🚀 ~ versions:", versions)
 
   const fetchVersions = async () => {
     const response = await fetch(
@@ -29,7 +28,7 @@ const VersionSelect = ({
       >
         <option value="">Seleccione una versión</option>
         {versions.map((version) => (
-          <option key={version.name} value={version.name}>
+          <option key={version.name} value={version.abreviation}>
             {version.name}
           </option>
         ))}

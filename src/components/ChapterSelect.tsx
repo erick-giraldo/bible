@@ -1,4 +1,10 @@
 import { useEffect, useState } from "react";
+export interface IChapter {
+  chapter: number
+  book_name: string
+  bible_name: string
+}
+
 
 const ChapterSelect = ({
   selectedBible,
@@ -9,14 +15,13 @@ const ChapterSelect = ({
   selectedBook: string;
   setSelectedChapter: (chapter: number) => void;
 }) => {
-  const [chapters, setChapters] = useState<number[]>([]);
-
+  const [chapters, setChapters] = useState<IChapter[]>([]);
   const fetchChapters = async () => {
     const response = await fetch(
       `https://t-soluciono.com/vistas/bible/api/index.php?route=chapters&bible=${selectedBible}&book=${selectedBook}`
     );
     const data = await response.json();
-    setChapters(data.chapters); // Asegúrate de que la API retorne los capítulos en este formato
+    setChapters(data); // Asegúrate de que la API retorne los capítulos en este formato
   };
 
   useEffect(() => {
@@ -34,8 +39,8 @@ const ChapterSelect = ({
       >
         <option value="">Seleccione un capítulo</option>
         {chapters.map((chapter) => (
-          <option key={chapter} value={chapter}>
-            Capítulo {chapter}
+          <option key={chapter.chapter} value={chapter.chapter}>
+            Capítulo {chapter.chapter}
           </option>
         ))}
       </select>
